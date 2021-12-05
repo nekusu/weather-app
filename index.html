@@ -5,11 +5,27 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
 	<link rel="stylesheet" href="style.css">
 	<title>Weather App</title>
 </head>
 
 <body>
+	<header>
+		<form action="" id="search-form">
+			<input type="text" name="text" autocomplete="off" placeholder="Search for a city, state, country...">
+			<button type="submit">
+				<span class="material-icons-round">search</span>
+			</button>
+		</form>
+		<button id="units-toggle">
+			<span id="metric">C°</span>
+			<span id="imperial">F°</span>
+		</button>
+	</header>
 	<script src="bundle.js"></script>
 </body>
 
