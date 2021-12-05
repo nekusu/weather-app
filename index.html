@@ -17,16 +17,42 @@
 	<header>
 		<form action="" id="search-form">
 			<input type="text" name="text" autocomplete="off" placeholder="Search for a city, state, country...">
-			<button type="submit">
+			<button type="submit" title="Search">
 				<span class="material-icons-round">search</span>
 			</button>
 		</form>
-		<button id="units-toggle">
+		<button id="units-toggle" title="Switch units">
 			<span id="metric">C°</span>
 			<span id="imperial">F°</span>
 		</button>
 	</header>
-	<script src="bundle.js"></script>
+	<div id="current-weather">
+		<div id="weather-info">
+			<div>
+				<h1 id="name" class="loadable"></h1>
+				<h2 id="description" class="loadable"></h2>
+			</div>
+			<div id="temp" class="loadable"></div>
+		</div>
+		<div id="weather-details">
+			<div>
+				<h3>Humidity</h3>
+				<span class="material-icons-round" title="Humidity">water_drop</span>
+				<span id="humidity" class="loadable"></span>
+			</div>
+			<div>
+				<h3>Cloudiness</h3>
+				<span class="material-icons-round" title="Cloudiness">cloud</span>
+				<span id="cloudiness" class="loadable"></span>
+			</div>
+			<div>
+				<h3>Wind speed</h3>
+				<span class="material-icons-round" title="Wind speed">air</span>
+				<span id="wind" class="loadable"></span>
+			</div>
+		</div>
+	</div>
+	<script src=" bundle.js"></script>
 </body>
 
 </html>
