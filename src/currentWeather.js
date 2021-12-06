@@ -24,4 +24,11 @@ async function getCurrentWeather(location, units = 'metric') {
 	return new CurrentWeather(data);
 }
 
-export default getCurrentWeather;
+async function getCurrentWeatherByCoords({ longitude, latitude }, units = 'metric') {
+	const response = await fetch(`${apiEndpoint}weather?lon=${longitude}&lat=${latitude}&units=${units}&appid=${apiKey}`);
+	if (!response.ok) throw new Error(response.statusText);
+	const data = await response.json();
+	return new CurrentWeather(data);
+}
+
+export { getCurrentWeather, getCurrentWeatherByCoords };
