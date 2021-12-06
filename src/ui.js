@@ -30,6 +30,7 @@ class UI {
 	static loadWeather() {
 		const currentWeather = document.querySelector('#current-weather');
 		currentWeather.classList.add('loading');
+		UI.hideError();
 		UI.clearCurrentWeather();
 		UI.clearForecastWeather();
 	}
@@ -63,6 +64,22 @@ class UI {
 		today.classList.add('today');
 		forecastWeather.appendChild(hourly);
 		forecastWeather.appendChild(daily);
+	}
+
+	static displayError(err) {
+		const currentWeather = document.querySelector('#current-weather');
+		const error = document.querySelector('#error');
+		const errorMessage = error.querySelector('#message');
+		currentWeather.classList.add('hidden');
+		error.classList.remove('hidden');
+		errorMessage.textContent = err.message;
+	}
+
+	static hideError() {
+		const currentWeather = document.querySelector('#current-weather');
+		const error = document.querySelector('#error');
+		currentWeather.classList.remove('hidden');
+		error.classList.add('hidden');
 	}
 
 	static #createHourlyCard(weather) {

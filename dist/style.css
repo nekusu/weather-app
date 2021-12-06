@@ -38,6 +38,10 @@ button {
 	vertical-align: middle;
 }
 
+.hidden {
+	display: none !important;
+}
+
 header {
 	width: 95%;
 	max-width: 800px;
@@ -87,6 +91,34 @@ header {
 }
 #search-form button:active {
 	transform: scale(0.875);
+}
+
+#error {
+	width: 90%;
+	max-width: 700px;
+	margin-top: 100px;
+	color: var(--text);
+	position: absolute;
+	top: calc(3vh + 3vw);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#error #message {
+	margin-bottom: 20px;
+	font-size: 40px;
+	font-weight: 800;
+	text-align: center;
+}
+#error p {
+	margin-bottom: 15px;
+	font-size: 20px;
+}
+#error li {
+	margin-left: 15px;
+	margin-bottom: 5px;
+	color: var(--text2);
+	font-size: 18px;
 }
 
 #units-toggle {

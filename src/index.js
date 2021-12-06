@@ -12,20 +12,28 @@ function getCurrentPosition(options) {
 
 async function getWeather(location) {
 	UI.loadWeather();
-	const currentWeather = await getCurrentWeather(location, UI.selectedUnits);
-	UI.displayCurrentWeather(currentWeather);
-	const forecastWeather = await getForecastWeather(currentWeather, UI.selectedUnits);
-	UI.displayForecastWeather(forecastWeather);
+	try {
+		const currentWeather = await getCurrentWeather(location, UI.selectedUnits);
+		UI.displayCurrentWeather(currentWeather);
+		const forecastWeather = await getForecastWeather(currentWeather, UI.selectedUnits);
+		UI.displayForecastWeather(forecastWeather);
+	} catch (err) {
+		UI.displayError(err);
+	}
 }
 
 async function getWeatherByCoords(coords) {
 	UI.loadWeather();
-	const [currentWeather, forecastWeather] = await Promise.all([
-		getCurrentWeatherByCoords(coords, UI.selectedUnits),
-		getForecastWeather(coords, UI.selectedUnits),
-	]);
-	UI.displayCurrentWeather(currentWeather);
-	UI.displayForecastWeather(forecastWeather);
+	try {
+		const [currentWeather, forecastWeather] = await Promise.all([
+			getCurrentWeatherByCoords(coords, UI.selectedUnits),
+			getForecastWeather(coords, UI.selectedUnits),
+		]);
+		UI.displayCurrentWeather(currentWeather);
+		UI.displayForecastWeather(forecastWeather);
+	} catch (err) {
+		UI.displayError(err);
+	}
 }
 
 async function getWeatherAtStart() {
