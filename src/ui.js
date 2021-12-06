@@ -19,10 +19,19 @@ class UI {
 		});
 	}
 
+	static clearForecastWeather() {
+		const forecastWeather = document.querySelector('#forecast-weather');
+		const hourly = forecastWeather.querySelector('#hourly');
+		const daily = forecastWeather.querySelector('#daily');
+		hourly?.remove();
+		daily?.remove();
+	}
+
 	static loadWeather() {
 		const currentWeather = document.querySelector('#current-weather');
 		currentWeather.classList.add('loading');
 		UI.clearCurrentWeather();
+		UI.clearForecastWeather();
 	}
 
 	static displayCurrentWeather(weather) {
@@ -37,6 +46,52 @@ class UI {
 		humidity.textContent = `${weather.humidity}%`;
 		cloudiness.textContent = `${weather.cloudiness}%`;
 		windSpeed.textContent = `${weather.windSpeed} ${UI.selectedUnits === 'metric' ? 'm/s' : 'mph'}`;
+	}
+
+	static displayForecastWeather(weather) {
+		const forecastWeather = document.querySelector('#forecast-weather');
+		const hourly = UI.#createElement('div', { id: 'hourly' });
+		const daily = UI.#createElement('div', { id: 'daily' });
+		weather.hourly.forEach((hour) => {
+			hourly.appendChild(UI.#createHourlyCard(hour));
+		});
+		weather.daily.forEach((day) => {
+			daily.appendChild(UI.#createDailyCard(day));
+		});
+		const today = daily.firstElementChild.querySelector('.day');
+		today.textContent = 'Today';
+		today.classList.add('today');
+		forecastWeather.appendChild(hourly);
+		forecastWeather.appendChild(daily);
+	}
+
+	static #createHourlyCard(weather) {
+		const hour = UI.#createElement('div', { class: 'hour' }, weather.hour);
+		const icon = UI.#createWeatherIcon(weather);
+		const temp = UI.#createElement('div', { class: 'temp' }, `${weather.temperature}°`);
+		const container = UI.#createElement('div', { class: 'container' }, icon, temp);
+		const card = UI.#createElement('div', { class: 'card' }, hour, container);
+		return card;
+	}
+
+	static #createDailyCard(weather) {
+		const day = UI.#createElement('div', { class: 'day' }, weather.day);
+		const icon = UI.#createWeatherIcon(weather);
+		const maxTemp = UI.#createElement('div', { class: 'max-temp' }, `${weather.maxTemperature}°`);
+		const minTemp = UI.#createElement('div', { class: 'min-temp' }, `${weather.minTemperature}°`);
+		const temp = UI.#createElement('div', { class: 'temp' }, maxTemp, minTemp);
+		const container = UI.#createElement('div', { class: 'container' }, icon, temp);
+		const card = UI.#createElement('div', { class: 'card' }, day, container);
+		return card;
+	}
+
+	static #createWeatherIcon({ icon, description }) {
+		const weatherIcon = UI.#createElement('img', {
+			src: `http://openweathermap.org/img/wn/${icon}@2x.png`,
+			alt: UI.#capitalize(description),
+			title: UI.#capitalize(description),
+		});
+		return weatherIcon;
 	}
 
 	static #getWeatherElements() {
@@ -54,6 +109,23 @@ class UI {
 
 	static #capitalize(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	static #createElement(tag, attributes, ...children) {
+		const element = document.createElement(tag);
+		Object.keys(attributes).forEach((attr) => {
+			element.setAttribute(attr, attributes[attr]);
+		});
+		children.forEach((child) => {
+			if (child) {
+				if (typeof child === 'string') {
+					element.appendChild(document.createTextNode(child));
+				} else {
+					element.appendChild(child);
+				}
+			}
+		});
+		return element;
 	}
 }
 

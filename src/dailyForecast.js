@@ -4,9 +4,9 @@ import Weather from './weather';
 class DailyForecast extends Weather {
 	constructor(data) {
 		super(data);
-		this.day = dayjs.unix(data.dt).format('ddd');
-		this.minTemperature = data.temp.min;
-		this.maxTemperature = data.temp.max;
+		this.day = dayjs.unix(data.dt).format('dddd');
+		this.minTemperature = data.temp.min.toFixed(0);
+		this.maxTemperature = data.temp.max.toFixed(0);
 	}
 }
 

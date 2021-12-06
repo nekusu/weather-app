@@ -15,7 +15,7 @@ async function getWeather(location) {
 	const currentWeather = await getCurrentWeather(location, UI.selectedUnits);
 	UI.displayCurrentWeather(currentWeather);
 	const forecastWeather = await getForecastWeather(currentWeather, UI.selectedUnits);
-	console.log(forecastWeather);
+	UI.displayForecastWeather(forecastWeather);
 }
 
 async function getWeatherByCoords(coords) {
@@ -25,7 +25,7 @@ async function getWeatherByCoords(coords) {
 		getForecastWeather(coords, UI.selectedUnits),
 	]);
 	UI.displayCurrentWeather(currentWeather);
-	console.log(forecastWeather);
+	UI.displayForecastWeather(forecastWeather);
 }
 
 async function getWeatherAtStart() {
