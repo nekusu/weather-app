@@ -87,7 +87,7 @@ class UI {
 
 	static #createWeatherIcon({ icon, description }) {
 		const weatherIcon = UI.#createElement('img', {
-			src: `http://openweathermap.org/img/wn/${icon}@2x.png`,
+			src: `https://openweathermap.org/img/wn/${icon}@4x.png`,
 			alt: UI.#capitalize(description),
 			title: UI.#capitalize(description),
 		});
