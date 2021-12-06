@@ -30,6 +30,7 @@ class UI {
 	static loadWeather() {
 		const currentWeather = document.querySelector('#current-weather');
 		currentWeather.classList.add('loading');
+		UI.unitsToggle.disabled = true;
 		UI.hideError();
 		UI.clearCurrentWeather();
 		UI.clearForecastWeather();
@@ -64,6 +65,7 @@ class UI {
 		today.classList.add('today');
 		forecastWeather.appendChild(hourly);
 		forecastWeather.appendChild(daily);
+		UI.unitsToggle.disabled = false;
 	}
 
 	static displayError(err) {
@@ -73,6 +75,7 @@ class UI {
 		currentWeather.classList.add('hidden');
 		error.classList.remove('hidden');
 		errorMessage.textContent = err.message;
+		UI.unitsToggle.disabled = false;
 	}
 
 	static hideError() {
