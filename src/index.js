@@ -1,6 +1,13 @@
 import { getCurrentWeather, getCurrentWeatherByCoords } from './currentWeather';
 import getForecastWeather from './forecastWeather';
-import UI from './ui';
+import {
+	searchForm,
+	unitsToggle,
+	showError,
+	showLoadingAnimation,
+	displayCurrentWeather,
+	displayForecastWeather,
+} from './ui';
 
 let lastLocation;
 
@@ -11,28 +18,28 @@ function getCurrentPosition(options) {
 }
 
 async function getWeather(location) {
-	UI.loadWeather();
+	showLoadingAnimation();
 	try {
-		const currentWeather = await getCurrentWeather(location, UI.selectedUnits);
-		UI.displayCurrentWeather(currentWeather);
-		const forecastWeather = await getForecastWeather(currentWeather, UI.selectedUnits);
-		UI.displayForecastWeather(forecastWeather);
+		const currentWeather = await getCurrentWeather(location, unitsToggle.className);
+		displayCurrentWeather(currentWeather);
+		const forecastWeather = await getForecastWeather(currentWeather, unitsToggle.className);
+		displayForecastWeather(forecastWeather);
 	} catch (err) {
-		UI.displayError(err);
+		showError(err);
 	}
 }
 
 async function getWeatherByCoords(coords) {
-	UI.loadWeather();
+	showLoadingAnimation();
 	try {
 		const [currentWeather, forecastWeather] = await Promise.all([
-			getCurrentWeatherByCoords(coords, UI.selectedUnits),
-			getForecastWeather(coords, UI.selectedUnits),
+			getCurrentWeatherByCoords(coords, unitsToggle.className),
+			getForecastWeather(coords, unitsToggle.className),
 		]);
-		UI.displayCurrentWeather(currentWeather);
-		UI.displayForecastWeather(forecastWeather);
+		displayCurrentWeather(currentWeather);
+		displayForecastWeather(forecastWeather);
 	} catch (err) {
-		UI.displayError(err);
+		showError(err);
 	}
 }
 
@@ -41,7 +48,7 @@ async function getWeatherAtStart() {
 		timeout: 5000,
 		maximumAge: 0,
 	};
-	UI.loadWeather();
+	showLoadingAnimation();
 	try {
 		const position = await getCurrentPosition(options);
 		getWeatherByCoords(position.coords);
@@ -52,7 +59,7 @@ async function getWeatherAtStart() {
 
 function searchForWeather(e) {
 	e.preventDefault();
-	const location = UI.searchForm.text.value;
+	const location = searchForm.text.value;
 	if (location && location !== lastLocation) {
 		getWeather(location);
 	}
@@ -66,6 +73,6 @@ function switchUnits() {
 	}
 }
 
-UI.searchForm.addEventListener('submit', searchForWeather);
-UI.unitsToggle.addEventListener('click', switchUnits);
+searchForm.addEventListener('submit', searchForWeather);
+unitsToggle.addEventListener('click', switchUnits);
 getWeatherAtStart();
