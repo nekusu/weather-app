@@ -119,7 +119,7 @@ function displayCurrentWeather(weather) {
 		name, description, temperature, humidity, cloudiness, windSpeed,
 	} = getWeatherElements();
 	currentWeather.classList.remove('loading');
-	name.textContent = weather.name;
+	name.textContent = `${weather.name}, ${weather.country}`;
 	description.textContent = capitalize(weather.description);
 	temperature.textContent = `${weather.temperature.toFixed(0)}°`;
 	humidity.textContent = `${weather.humidity}%`;

@@ -14,6 +14,7 @@ class CurrentWeather extends Weather {
 		this.windSpeed = wind.speed;
 		this.cloudiness = clouds.all;
 		this.name = data.name;
+		this.country = data.sys.country;
 	}
 }
 
